@@ -84,11 +84,8 @@ const App: React.FC = () => {
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-green-600 via-green-700 to-green-800">
       <header className="bg-green-800 text-white p-4 shadow-lg sticky top-0 z-50">
         <div className="container mx-auto flex justify-between items-center">
-          <button onClick={navigateHome} className="text-3xl font-bold tracking-tight focus:outline-none focus:ring-2 focus:ring-white rounded">
-            Calculadora Agronômica
-          </button>
           <button 
-            className="md:hidden p-2 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+            className="md:hidden p-2 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white mr-2" // Added mr-2 for spacing
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
             aria-expanded={isMobileMenuOpen}
@@ -104,6 +101,19 @@ const App: React.FC = () => {
               </svg>
             )}
           </button>
+          <button onClick={navigateHome} className="text-2xl md:text-3xl font-bold tracking-tight focus:outline-none focus:ring-2 focus:ring-white rounded">
+            Calculadora Agronômica
+          </button>
+          {/* Spacer to push title to center if hamburger is visible, or to allow title to be on far left if hamburger not there.
+              On mobile, justify-between handles it. On desktop, we need to ensure title doesn't jump to center if hamburger is hidden.
+              The current setup with justify-between should make the title effectively take the "right" slot on mobile.
+              On desktop, without the hamburger, the title is the first item and aligns left.
+              If we want title centered on mobile when hamburger is present:
+              Add a div here: <div className="md:hidden w-8"></div> or similar width as hamburger
+              And adjust the title's flex properties or text-align.
+              For now, simply reordering is the primary goal. The title will be to the right of the hamburger on mobile.
+          */}
+           <div className="w-6 md:hidden"></div> {/* Placeholder to balance the hamburger menu button for centering the title, if needed. Or remove if title should be left-aligned next to hamburger */}
         </div>
       </header>
 
@@ -111,7 +121,7 @@ const App: React.FC = () => {
         <aside
           id="mobile-menu"
           className={`
-            fixed inset-y-0 left-0 z-30 w-64 bg-white/95 backdrop-blur-lg shadow-2xl p-4 transform transition-transform duration-300 ease-in-out 
+            fixed inset-y-0 left-0 z-30 w-64 bg-white/95 backdrop-blur-lg shadow-2xl p-4 transform transition-transform duration-300 ease-in-out flex flex-col
             md:relative md:inset-y-auto md:left-auto md:w-1/4 lg:w-1/5 md:translate-x-0 md:sticky md:top-20 md:self-start md:max-h-[calc(100vh-10rem)] md:flex md:flex-col rounded-r-xl md:rounded-xl
             ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
           `}
@@ -130,6 +140,7 @@ const App: React.FC = () => {
           </div>
           <nav
             className="space-y-1 overflow-y-auto flex-grow pr-1 mt-4 md:mt-0"
+            aria-label="Menu de calculadoras"
           >
             {calculators.map((calc) => (
               <button
