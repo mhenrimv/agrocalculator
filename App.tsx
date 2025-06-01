@@ -84,12 +84,12 @@ const App: React.FC = () => {
 
       <div className="flex-grow container mx-auto p-4 flex flex-col md:flex-row gap-6">
         <aside
-          className="w-full md:w-1/4 lg:w-1/5 bg-white/90 backdrop-blur-md shadow-2xl rounded-xl p-3 md:p-4 self-start sticky top-20 group"
-          style={{ maxHeight: '80vh' }} 
+          className="w-full md:w-1/4 lg:w-1/5 bg-white/90 backdrop-blur-md shadow-2xl rounded-xl p-3 md:p-4 self-start sticky top-20 flex flex-col"
+          style={{ maxHeight: 'calc(100vh - 10rem)' }} 
         >
           <h2 className="text-xl font-semibold text-green-800 mb-4 border-b-2 border-green-500 pb-2 flex-shrink-0">Cálculos</h2>
           <nav
-            className="space-y-1 overflow-y-auto max-h-0 group-hover:max-h-[calc(80vh-6rem)] transition-all duration-300 ease-in-out"
+            className="space-y-1 overflow-y-auto flex-grow pr-1" /* Added pr-1 for scrollbar */
           >
             {calculators.map((calc) => (
               <button
@@ -129,7 +129,7 @@ const App: React.FC = () => {
                 <li>Calibração de Equipamentos Diversos (Ex: Distribuidor de Fertilizantes)</li>
               </ul>
               <p className="text-gray-700 text-lg">
-                Explore nossas calculadoras selecionando uma opção no menu ao lado ou acessando diretamente via URL (ex: #LIMING_REQUIREMENT).
+                Explore nossas calculadoras selecionando uma opção no menu ao lado.
               </p>
             </div>
           )}

@@ -26,6 +26,105 @@
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
+
+    @media print {
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #fff !important;
+        -webkit-print-color-adjust: exact; /* Ensures background colors and images are printed in WebKit browsers */
+        print-color-adjust: exact; /* Standard property for color adjust */
+      }
+      
+      /* Hide header, sidebar, footer */
+      body > div#root > div > header,
+      body > div#root > div > div > aside,
+      body > div#root > div > footer {
+        display: none !important;
+      }
+      
+      /* Ensure main content takes full width */
+      body > div#root > div > div > main {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 1rem !important;
+        box-shadow: none !important;
+      }
+
+      .calculator-shell-print-container { /* Class added to CalculatorShell's main div */
+        box-shadow: none !important;
+        border: 1px solid #ccc;
+        padding: 1rem;
+        background-color: #fff !important;
+      }
+      
+      .calculator-shell-print-container h2,
+      .calculator-shell-print-container h3 {
+        font-size: 1.5rem;
+        color: #000 !important;
+      }
+      .calculator-shell-print-container h3 {
+        font-size: 1.25rem;
+      }
+
+      .calculator-shell-print-container p,
+      .calculator-shell-print-container li,
+      .calculator-shell-print-container span,
+      .calculator-shell-print-container label,
+      .calculator-shell-print-container div:not(.bg-gray-100):not(.bg-green-50) { /* Avoid overriding all divs blindly */
+          color: #000 !important;
+      }
+      .calculator-shell-print-container strong {
+         color: #000 !important;
+      }
+
+      .calculator-shell-print-container .text-green-700,
+      .calculator-shell-print-container .text-green-600,
+      .calculator-shell-print-container .text-gray-700,
+      .calculator-shell-print-container .text-gray-600,
+      .calculator-shell-print-container .text-gray-800 {
+          color: #000 !important;
+      }
+       .calculator-shell-print-container .text-gray-500 {
+          color: #333 !important; /* Darker gray for less important text */
+      }
+
+
+      .calculator-shell-print-container .bg-gray-100,
+      .calculator-shell-print-container .bg-green-50,
+      .calculator-shell-print-container .bg-green-50 {
+          background-color: #f0f0f0 !important; /* Very light gray for backgrounds */
+          border: 1px solid #ddd;
+      }
+      .calculator-shell-print-container .border-green-200 {
+          border-color: #ddd !important;
+      }
+
+
+      /* Hide "Calcular" buttons (typically green) and other action buttons not meant for print */
+      button.bg-green-600, button.bg-blue-500 {
+          display: none !important;
+      }
+      
+      /* Force stacking of grid columns in CalculatorShell */
+      .calculator-shell-print-container > .grid {
+          display: block !important;
+      }
+      .calculator-shell-print-container > .grid > div {
+          width: 100% !important;
+          margin-bottom: 1rem; /* Add space between stacked sections */
+      }
+
+      /* Ensure inputs and selects are visible and borders are black */
+      .calculator-shell-print-container input,
+      .calculator-shell-print-container select {
+        border-color: #000 !important;
+        color: #000 !important;
+        background-color: #fff !important;
+      }
+    }
   </style>
 <script type="importmap">
 {
