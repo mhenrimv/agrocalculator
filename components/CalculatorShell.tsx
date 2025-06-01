@@ -12,7 +12,7 @@ interface CalculatorShellProps {
 
 const CalculatorShell: React.FC<CalculatorShellProps> = ({ title, description, children, results, formula, notes }) => {
   return (
-    <div className="bg-white shadow-xl rounded-lg p-6 md:p-8 w-full">
+    <div className="bg-white shadow-xl rounded-lg p-6 md:p-8 w-full calculator-shell-print-container">
       <h2 className="text-2xl font-bold text-green-700 mb-2">{title}</h2>
       <p className="text-gray-600 mb-6">{description}</p>
       
@@ -44,6 +44,13 @@ const CalculatorShell: React.FC<CalculatorShellProps> = ({ title, description, c
                   </div>
                 ))}
               </div>
+              <button
+                onClick={() => window.print()}
+                className="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md transition duration-150 ease-in-out print:hidden"
+                aria-label="Exportar resultados para PDF"
+              >
+                Exportar para PDF
+              </button>
             </div>
           )}
         </div>
