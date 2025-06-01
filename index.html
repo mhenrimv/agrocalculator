@@ -28,101 +28,92 @@
     }
 
     @media print {
+      @page {
+        margin: 0.75in; /* Standard margin for printing */
+      }
       body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: Arial, sans-serif; /* Common font for PDFs */
         margin: 0;
         padding: 0;
         background-color: #fff !important;
-        -webkit-print-color-adjust: exact; /* Ensures background colors and images are printed in WebKit browsers */
-        print-color-adjust: exact; /* Standard property for color adjust */
+        color: #000 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
       }
       
-      /* Hide header, sidebar, footer */
+      /* Hide header, sidebar, footer, and the main calculator UI form */
       body > div#root > div > header,
       body > div#root > div > div > aside,
-      body > div#root > div > footer {
+      body > div#root > div > footer,
+      .calculator-shell-print-container .calculator-ui { /* Hides the interactive UI part */
         display: none !important;
       }
       
-      /* Ensure main content takes full width */
+      /* Ensure main content area is clean for the report */
       body > div#root > div > div > main {
         width: 100% !important;
         max-width: 100% !important;
         margin: 0 !important;
-        padding: 1rem !important;
+        padding: 0 !important; 
         box-shadow: none !important;
-      }
-
-      .calculator-shell-print-container { /* Class added to CalculatorShell's main div */
-        box-shadow: none !important;
-        border: 1px solid #ccc;
-        padding: 1rem;
         background-color: #fff !important;
       }
-      
-      .calculator-shell-print-container h2,
-      .calculator-shell-print-container h3 {
-        font-size: 1.5rem;
-        color: #000 !important;
-      }
-      .calculator-shell-print-container h3 {
-        font-size: 1.25rem;
-      }
 
-      .calculator-shell-print-container p,
-      .calculator-shell-print-container li,
-      .calculator-shell-print-container span,
-      .calculator-shell-print-container label,
-      .calculator-shell-print-container div:not(.bg-gray-100):not(.bg-green-50) { /* Avoid overriding all divs blindly */
-          color: #000 !important;
-      }
-      .calculator-shell-print-container strong {
-         color: #000 !important;
-      }
-
-      .calculator-shell-print-container .text-green-700,
-      .calculator-shell-print-container .text-green-600,
-      .calculator-shell-print-container .text-gray-700,
-      .calculator-shell-print-container .text-gray-600,
-      .calculator-shell-print-container .text-gray-800 {
-          color: #000 !important;
-      }
-       .calculator-shell-print-container .text-gray-500 {
-          color: #333 !important; /* Darker gray for less important text */
-      }
-
-
-      .calculator-shell-print-container .bg-gray-100,
-      .calculator-shell-print-container .bg-green-50,
-      .calculator-shell-print-container .bg-green-50 {
-          background-color: #f0f0f0 !important; /* Very light gray for backgrounds */
-          border: 1px solid #ddd;
-      }
-      .calculator-shell-print-container .border-green-200 {
-          border-color: #ddd !important;
-      }
-
-
-      /* Hide "Calcular" buttons (typically green) and other action buttons not meant for print */
-      button.bg-green-600, button.bg-blue-500 {
-          display: none !important;
-      }
-      
-      /* Force stacking of grid columns in CalculatorShell */
-      .calculator-shell-print-container > .grid {
-          display: block !important;
-      }
-      .calculator-shell-print-container > .grid > div {
-          width: 100% !important;
-          margin-bottom: 1rem; /* Add space between stacked sections */
-      }
-
-      /* Ensure inputs and selects are visible and borders are black */
-      .calculator-shell-print-container input,
-      .calculator-shell-print-container select {
-        border-color: #000 !important;
-        color: #000 !important;
+      .calculator-shell-print-container { /* The direct parent of .print-report */
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
         background-color: #fff !important;
+        width: 100% !important;
+      }
+      
+      /* Styles for the print report section */
+      .print-report {
+        display: block !important; /* Ensure it's visible for print */
+        color: #000;
+        background-color: #fff;
+        padding: 10px; /* Minimal padding, page margin handles overall spacing */
+        line-height: 1.4;
+      }
+      .print-report h1.report-title {
+        font-size: 18pt;
+        font-weight: bold;
+        color: #000 !important;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 5px;
+      }
+      .print-report p.report-date-time {
+        font-size: 9pt;
+        color: #333 !important;
+        margin-bottom: 15px;
+      }
+      .print-report h2.report-section-title {
+        font-size: 14pt;
+        font-weight: bold;
+        color: #000 !important;
+        margin-top: 15px;
+        margin-bottom: 8px;
+      }
+      .print-report .report-item {
+        display: flex;
+        justify-content: space-between;
+        font-size: 10pt;
+        color: #000 !important;
+        padding: 4px 0;
+        border-bottom: 1px dotted #eee;
+        page-break-inside: avoid;
+      }
+      .print-report .report-item span:first-child {
+        /* Label */
+        margin-right: 10px;
+      }
+      .print-report .report-item span:last-child {
+        /* Value */
+        text-align: right;
+      }
+      .print-report .report-item .report-value-strong {
+         font-weight: bold;
       }
     }
   </style>

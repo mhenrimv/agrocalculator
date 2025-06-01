@@ -21,6 +21,7 @@ import SprayingSpeed from './components/calculators/SprayingSpeed.tsx';
 
 const App: React.FC = () => {
   const [selectedCalculator, setSelectedCalculator] = useState<CalculatorType | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const calculators: CalculatorInfo[] = useMemo(() => [
     { id: CalculatorType.LIMING_REQUIREMENT, name: "Necessidade de Calagem", description: "Calcula as necessidades de calcário.", component: LimingRequirement },
@@ -50,6 +51,7 @@ const App: React.FC = () => {
       } else {
         setSelectedCalculator(null);
       }
+      setIsMobileMenuOpen(false); // Close mobile menu on hash change
     };
 
     window.addEventListener('hashchange', handleHashChange);
@@ -63,11 +65,17 @@ const App: React.FC = () => {
   const handleSelectCalculator = (id: CalculatorType) => {
     setSelectedCalculator(id);
     window.location.hash = id;
+    if (isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+    }
   };
   
   const navigateHome = () => {
     setSelectedCalculator(null);
     window.location.hash = '';
+    if (isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+    }
   }
 
   const CurrentCalculator = selectedCalculator ? calculators.find(calc => calc.id === selectedCalculator)?.component : null;
@@ -77,19 +85,51 @@ const App: React.FC = () => {
       <header className="bg-green-800 text-white p-4 shadow-lg sticky top-0 z-50">
         <div className="container mx-auto flex justify-between items-center">
           <button onClick={navigateHome} className="text-3xl font-bold tracking-tight focus:outline-none focus:ring-2 focus:ring-white rounded">
-            Calculadora Agronomica
+            Calculadora Agronômica
+          </button>
+          <button 
+            className="md:hidden p-2 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
+          >
+            {isMobileMenuOpen ? (
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+            )}
           </button>
         </div>
       </header>
 
       <div className="flex-grow container mx-auto p-4 flex flex-col md:flex-row gap-6">
         <aside
-          className="w-full md:w-1/4 lg:w-1/5 bg-white/90 backdrop-blur-md shadow-2xl rounded-xl p-3 md:p-4 self-start sticky top-20 flex flex-col"
-          style={{ maxHeight: 'calc(100vh - 10rem)' }} 
+          id="mobile-menu"
+          className={`
+            fixed inset-y-0 left-0 z-30 w-64 bg-white/95 backdrop-blur-lg shadow-2xl p-4 transform transition-transform duration-300 ease-in-out 
+            md:relative md:inset-y-auto md:left-auto md:w-1/4 lg:w-1/5 md:translate-x-0 md:sticky md:top-20 md:self-start md:max-h-[calc(100vh-10rem)] md:flex md:flex-col rounded-r-xl md:rounded-xl
+            ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
+          `}
         >
-          <h2 className="text-xl font-semibold text-green-800 mb-4 border-b-2 border-green-500 pb-2 flex-shrink-0">Cálculos</h2>
+          <div className="flex justify-between items-center md:block">
+            <h2 className="text-xl font-semibold text-green-800 mb-0 md:mb-4 border-b-2 border-green-500 pb-2 flex-shrink-0">Cálculos</h2>
+            <button 
+              className="md:hidden p-1 text-gray-600 hover:text-gray-800"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-label="Fechar menu"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
           <nav
-            className="space-y-1 overflow-y-auto flex-grow pr-1" /* Added pr-1 for scrollbar */
+            className="space-y-1 overflow-y-auto flex-grow pr-1 mt-4 md:mt-0"
           >
             {calculators.map((calc) => (
               <button
@@ -109,6 +149,14 @@ const App: React.FC = () => {
             ))}
           </nav>
         </aside>
+        
+        {isMobileMenuOpen && (
+          <div 
+            className="fixed inset-0 z-20 bg-black/30 md:hidden"
+            onClick={() => setIsMobileMenuOpen(false)}
+            aria-hidden="true"
+          ></div>
+        )}
 
         <main className="w-full md:w-3/4 lg:w-4/5" role="main" aria-live="polite">
           {CurrentCalculator ? (
@@ -129,7 +177,7 @@ const App: React.FC = () => {
                 <li>Calibração de Equipamentos Diversos (Ex: Distribuidor de Fertilizantes)</li>
               </ul>
               <p className="text-gray-700 text-lg">
-                Explore nossas calculadoras selecionando uma opção no menu ao lado.
+                Explore nossas calculadoras selecionando uma opção no menu.
               </p>
             </div>
           )}
@@ -137,7 +185,7 @@ const App: React.FC = () => {
       </div>
 
       <footer className="bg-green-800 text-white text-center p-4 mt-auto">
-        <p>&copy; {new Date().getFullYear()} Calculadora Agronomica. Todos os direitos reservados.</p>
+        <p>&copy; {new Date().getFullYear()} Calculadora Agronômica. Todos os direitos reservados.</p>
         <p className="text-xs opacity-75">Developed by @hmarcosvieira</p>
       </footer>
     </div>
