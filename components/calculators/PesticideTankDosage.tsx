@@ -59,6 +59,8 @@ const PesticideTankDosage: React.FC = () => {
         results={results} 
         formula={formulaNode}
         notes={notesNode}
+        inputConfigsForReport={inputConfigs}
+        inputValuesForReport={inputs}
     >
       {inputConfigs.map(config => (
         <CalculatorInput

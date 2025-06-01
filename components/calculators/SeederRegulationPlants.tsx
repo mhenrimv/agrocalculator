@@ -26,17 +26,8 @@ const SeederRegulationPlants: React.FC = () => {
       return;
     }
 
-    // 1. Calcular metros lineares de sulco por hectare
-    // 1 hectare = 10.000 m²
-    // Metros lineares/ha = 10.000 m² / Espaçamento entre linhas (m)
     const metrosLinearesPorHa = 10000 / espacamentoLinhasM_val;
-
-    // 2. Calcular o número de plantas desejadas por metro linear
-    // Plantas/metro = População desejada (plantas/ha) / Metros lineares/ha
     const plantasPorMetroLinearDesejadas = populacaoDesejadaHa_val / metrosLinearesPorHa;
-
-    // 3. Calcular o número de sementes a serem distribuídas por metro linear, considerando a germinação
-    // Sementes/metro = Plantas/metro / (Poder Germinativo / 100)
     const sementesPorMetroLinear = plantasPorMetroLinearDesejadas / (poderGerminativo_val / 100);
 
     setResults([
@@ -79,6 +70,8 @@ const SeederRegulationPlants: React.FC = () => {
       results={results}
       formula={formulaNode}
       notes={notesNode}
+      inputConfigsForReport={inputConfigs}
+      inputValuesForReport={inputs}
     >
       {inputConfigs.map(config => (
         <CalculatorInput

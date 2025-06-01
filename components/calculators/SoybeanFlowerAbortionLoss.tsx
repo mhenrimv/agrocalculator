@@ -29,15 +29,10 @@ const SoybeanFlowerAbortionLoss: React.FC = () => {
       return;
     }
 
-    // 1. Flores/Vagens Abortadas por hectare
     const floresAbortadasHa = (floresAbortadasMetro_val / espacamentoLinhasM_val) * 10000;
-    // (Considera-se que cada flor/vagem jovem abortada representa uma vagem perdida potencial)
     const vagensPerdidasHa = floresAbortadasHa;
-    // 2. Grãos Perdidos por hectare
     const graosPerdidosHa = vagensPerdidasHa * graosVagemViavel_val;
-    // 3. Perda de Produtividade (kg/ha)
     const perdaKgHa = (graosPerdidosHa * pmgG_val) / 1000000;
-    // 4. Perda de Produtividade (sc/ha)
     const perdaScHa = perdaKgHa / 60;
 
     setResults([
@@ -79,6 +74,8 @@ const SoybeanFlowerAbortionLoss: React.FC = () => {
       results={results}
       formula={formulaNode}
       notes={notesNode}
+      inputConfigsForReport={inputConfigs}
+      inputValuesForReport={inputs}
     >
       {inputConfigs.map(config => (
         <CalculatorInput

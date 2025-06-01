@@ -31,16 +31,9 @@ const SoybeanYieldEst: React.FC = () => {
       return;
     }
 
-    // 1. Plantas por hectare
     const plantasHa = (plantasMetro_val / espacamentoLinhasM_val) * 10000;
-    // 2. Total de grãos por hectare
     const graosHa = plantasHa * vagensPlanta_val * graosVagem_val;
-    // 3. Produtividade em kg/ha
-    // PMG está em gramas por 1000 grãos.
-    // Peso de um grão (g) = pmgG_val / 1000
-    // Produtividade (kg/ha) = (graosHa * (pmgG_val / 1000)) / 1000  (para converter g para kg)
     const produtividadeKgHa = (graosHa * pmgG_val) / 1000000;
-    // 4. Produtividade em sacas/ha (considerando saca de 60kg)
     const produtividadeScHa = produtividadeKgHa / 60;
 
     setResults([
@@ -85,6 +78,8 @@ const SoybeanYieldEst: React.FC = () => {
       results={results}
       formula={formulaNode}
       notes={notesNode}
+      inputConfigsForReport={inputConfigs}
+      inputValuesForReport={inputs}
     >
       {inputConfigs.map(config => (
         <CalculatorInput

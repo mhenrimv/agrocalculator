@@ -27,9 +27,7 @@ const CoffeeYieldEst: React.FC = () => {
       return;
     }
 
-    // 1. Total de litros por hectare
     const totalLitrosHa = plantasHa_val * litrosPlanta_val;
-    // 2. Produtividade em sacas de 60kg/ha
     const produtividadeScHa = totalLitrosHa / rendimentoLitrosSaca_val;
 
     setResults([
@@ -70,6 +68,8 @@ const CoffeeYieldEst: React.FC = () => {
       results={results}
       formula={formulaNode}
       notes={notesNode}
+      inputConfigsForReport={inputConfigs}
+      inputValuesForReport={inputs}
     >
       {inputConfigs.map(config => (
         <CalculatorInput

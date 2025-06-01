@@ -27,7 +27,6 @@ const SprayingSpeed: React.FC = () => {
       return;
     }
 
-    // Fórmula: Velocidade (Km/h) = (Vazão do Bico (L/min) * 600) / (Volume de Calda (L/ha) * Espaçamento entre Bicos (m))
     const velocidadeKmH = (vazaoBicoLMin_val * 600) / (volumeCaldaLHa_val * espacamentoBicosM_val);
     const velocidadeMs = velocidadeKmH / 3.6;
 
@@ -70,6 +69,8 @@ const SprayingSpeed: React.FC = () => {
       results={results}
       formula={formulaNode}
       notes={notesNode}
+      inputConfigsForReport={inputConfigs}
+      inputValuesForReport={inputs}
     >
       {inputConfigs.map(config => (
         <CalculatorInput

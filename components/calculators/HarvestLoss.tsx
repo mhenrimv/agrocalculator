@@ -27,13 +27,8 @@ const HarvestLoss: React.FC = () => {
       return;
     }
 
-    // 1. Grãos perdidos por m²
     const graosPerdidosM2 = graosPerdidosAmostra_val / areaAmostragemM2_val;
-    // 2. Perda em kg/ha
-    // Perda (kg/ha) = (Grãos Perdidos/m² * PMG_g / 1000_g_por_kg_PMG) * 10000_m2_por_ha / 1000_g_por_kg_total
-    // Simplificado: (graosPerdidosM2 * pmgG_val * 10000) / 1000000
     const perdaKgHa = (graosPerdidosM2 * pmgG_val) / 100;
-    // 3. Perda em sacas/ha (considerando saca de 60kg)
     const perdaScHa = perdaKgHa / 60;
 
     setResults([
@@ -77,6 +72,8 @@ const HarvestLoss: React.FC = () => {
       results={results}
       formula={formulaNode}
       notes={notesNode}
+      inputConfigsForReport={inputConfigs}
+      inputValuesForReport={inputs}
     >
       {inputConfigs.map(config => (
         <CalculatorInput

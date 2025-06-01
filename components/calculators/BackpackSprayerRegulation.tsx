@@ -33,16 +33,8 @@ const BackpackSprayerRegulation: React.FC = () => {
       return;
     }
 
-    // 1. Vazão do Bico (L/min)
     const vazaoBicoLMin = (volumeColetadoMl_val / tempoColetaS_val) * (60 / 1000);
-    // 2. Velocidade de Deslocamento (m/s)
     const velocidadeMs = distPercorridaCalibM_val / tempoPercorrerDistS_val;
-    // 3. Volume de Aplicação (L/ha)
-    // L/ha = (Vazão Bico L/min * 600) / (Velocidade Km/h * Largura Faixa m)
-    // Velocidade Km/h = velocidadeMs * 3.6
-    // L/ha = (vazaoBicoLMin * 600) / ( (velocidadeMs * 3.6) * larguraFaixaPulvM_val )
-    // Simplificando: L/ha = (vazaoBicoLMin * 10000) / (velocidadeMs * 60 * larguraFaixaPulvM_val)
-    // Ou a fórmula direta: L/ha = (Volume Coletado_mL / (Tempo Coleta_s * Largura Faixa_m * Velocidade_m/s)) * 10
     const volumeAplicacaoLHa = (volumeColetadoMl_val / (tempoColetaS_val * larguraFaixaPulvM_val * velocidadeMs)) * 10;
 
 
@@ -91,6 +83,8 @@ const BackpackSprayerRegulation: React.FC = () => {
       results={results}
       formula={formulaNode}
       notes={notesNode}
+      inputConfigsForReport={inputConfigs}
+      inputValuesForReport={inputs}
     >
       {inputConfigs.map(config => (
         <CalculatorInput

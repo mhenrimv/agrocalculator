@@ -27,10 +27,7 @@ const FertilizerSpreaderCalibration: React.FC = () => {
       return;
     }
 
-    // 1. Área Coberta (m²)
     const areaCobertaM2 = distanciaPercorridaM_val * larguraFaixaM_val;
-    // 2. Taxa de Aplicação (kg/ha)
-    // Aplicação (kg/ha) = (Quantidade Coletada_kg / Área Coberta_m²) * 10.000 m²/ha
     const aplicacaoKgHa = (qtdColetadaKg_val / areaCobertaM2) * 10000;
 
     setResults([
@@ -71,6 +68,8 @@ const FertilizerSpreaderCalibration: React.FC = () => {
       results={results}
       formula={formulaNode}
       notes={notesNode}
+      inputConfigsForReport={inputConfigs}
+      inputValuesForReport={inputs}
     >
       {inputConfigs.map(config => (
         <CalculatorInput

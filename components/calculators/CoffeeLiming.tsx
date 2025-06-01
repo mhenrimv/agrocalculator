@@ -40,11 +40,7 @@ const CoffeeLiming: React.FC = () => {
       return;
     }
 
-    // Fórmula: NC (t/ha) = [(Vdesejada - Vatual) * CTC] / PRNT  <- esta é uma simplificação.
-    // Usando a fórmula mais comum e completa, similar à calagem geral:
-    // 1. Calcula a Necessidade de Calcário base (NC_base) como se PRNT fosse 100% e profundidade 20cm.
     const NC_base = ((V_desejada_cafe_val - V_atual_val) * CTC_pH7_val) / 100; // t/ha
-    // 2. Corrige pela PRNT, profundidade e área de aplicação.
     const Qtd_aplicar = NC_base * (100 / PRNT_val) * (profundidade_val / 20) * (areaAplicacaoPercent_val / 100); // t/ha
 
     setResults([
@@ -91,6 +87,8 @@ const CoffeeLiming: React.FC = () => {
       results={results}
       formula={formulaNode}
       notes={notesNode}
+      inputConfigsForReport={inputConfigs}
+      inputValuesForReport={inputs}
     >
       {inputConfigs.map(config => (
         <CalculatorInput

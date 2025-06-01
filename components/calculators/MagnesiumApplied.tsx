@@ -25,11 +25,7 @@ const MagnesiumApplied: React.FC = () => {
       return;
     }
 
-    // 1. MgO (kg/ha)
     const mgoKgHa = calcarioAplicadoTha_val * 1000 * (teorMgOPercent_val / 100);
-    // 2. Mg Elementar (kg/ha)
-    // Fator de conversão de MgO para Mg: Peso molecular Mg = 24.305, O = 15.999. MgO = 40.304.
-    // Mg/MgO = 24.305 / 40.304 ≈ 0.60304
     const mgElementarKgHa = mgoKgHa * 0.60304;
 
     setResults([
@@ -68,6 +64,8 @@ const MagnesiumApplied: React.FC = () => {
       results={results}
       formula={formulaNode}
       notes={notesNode}
+      inputConfigsForReport={inputConfigs}
+      inputValuesForReport={inputs}
     >
       {inputConfigs.map(config => (
         <CalculatorInput

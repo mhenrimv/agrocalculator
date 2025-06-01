@@ -28,7 +28,7 @@ const LimingRequirement: React.FC = () => {
     const AreaPercent_val = parseFloat(inputs.AreaPercent);
 
     if (isNaN(VE_val) || isNaN(V_val) || isNaN(T_val) || isNaN(PRNT_val) || isNaN(Profundidade_val) || isNaN(AreaPercent_val) || PRNT_val === 0 || T_val === 0) {
-      setResults([{ label: "Erro", value: NaN, unit: "Verifique as entradas. PRNT e T não podem ser zero." }]);
+      setResults([{ label: "Erro", value: "Verifique as entradas. PRNT e T não podem ser zero.", unit: "" }]);
       return;
     }
     
@@ -85,6 +85,8 @@ const LimingRequirement: React.FC = () => {
       results={results} 
       formula={formulaNode}
       notes={notesNode}
+      inputConfigsForReport={inputConfigs}
+      inputValuesForReport={inputs}
     >
       {inputConfigs.map(config => (
         <CalculatorInput

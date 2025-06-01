@@ -30,14 +30,11 @@ const SowingTime: React.FC = () => {
       return;
     }
 
-    // 1. Capacidade de Campo Teórica (ha/h)
     const capCampoTeoricaHaH = (larguraSemeadoraM_val * velocidadeSemeaduraKmH_val) / 10;
-    // 2. Capacidade de Campo Efetiva (ha/h)
     const capCampoEfetivaHaH = capCampoTeoricaHaH * (eficienciaOperacionalPercent_val / 100);
-    // 3. Tempo Total de Semeadura (horas)
     const tempoTotalSemeaduraH = areaTotalHa_val / capCampoEfetivaHaH;
-    const tempoTotalSemeaduraDias = tempoTotalSemeaduraH / 8; // Considerando jornada de 8h/dia
-    const tempoTotalSemeaduraDias10h = tempoTotalSemeaduraH / 10; // Considerando jornada de 10h/dia
+    const tempoTotalSemeaduraDias = tempoTotalSemeaduraH / 8; 
+    const tempoTotalSemeaduraDias10h = tempoTotalSemeaduraH / 10;
 
 
     setResults([
@@ -79,6 +76,8 @@ const SowingTime: React.FC = () => {
       results={results}
       formula={formulaNode}
       notes={notesNode}
+      inputConfigsForReport={inputConfigs}
+      inputValuesForReport={inputs}
     >
       {inputConfigs.map(config => (
         <CalculatorInput

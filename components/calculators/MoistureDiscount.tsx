@@ -23,11 +23,11 @@ const MoistureDiscount: React.FC = () => {
     const umidadeFinal_val = parseFloat(inputs.umidadeFinal);
 
     if (isNaN(pesoColhido_val) || isNaN(umidadeInicial_val) || isNaN(umidadeFinal_val) || umidadeInicial_val < 0 || umidadeInicial_val > 100 || umidadeFinal_val < 0 || umidadeFinal_val > 100 ) {
-      setResults([{ label: "Erro", value: NaN, unit: "Entrada inválida" }]);
+      setResults([{ label: "Erro", value: "Entrada inválida", unit: "" }]);
       return;
     }
     if ((100 - umidadeFinal_val) === 0) {
-      setResults([{ label: "Erro", value: NaN, unit: "Umidade final não pode ser 100%" }]);
+      setResults([{ label: "Erro", value: "Umidade final não pode ser 100%", unit: "" }]);
       return;
     }
 
@@ -68,6 +68,8 @@ const MoistureDiscount: React.FC = () => {
         results={results} 
         formula={formulaNode} 
         notes={notesNode}
+        inputConfigsForReport={inputConfigs}
+        inputValuesForReport={inputs}
     >
       {inputConfigs.map(config => (
         <CalculatorInput
